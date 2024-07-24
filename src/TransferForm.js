@@ -2,18 +2,19 @@ import React from "react";
 import TronWeb from 'tronweb';
 import BigNumber from 'bignumber.js';
 
-const selfAccount = "YOUR_ACCOUNT_ADDRESS";
+const selfAccount = "";
 //Don't share this API KEY in anywhere.
-const privateKey = "YOUR_PRIVATEKY";
+const privateKey = "";
 
-const testNode = 'https://api.shasta.trongrid.io';
+const testNode = 'https://nile.trongrid.io';
 const mainNode = 'https://api.trongrid.io';
-const tronWeb = new TronWeb(mainNode, mainNode, mainNode, privateKey)
+// const tronWeb = new TronWeb(mainNode, mainNode, mainNode, privateKey)
+const tronWeb = new TronWeb(testNode, testNode, testNode, privateKey)
 
-const ContractAddress = "YOUR_TRC20_TOKEN_CONTRACT_ADDRESS";
+const ContractAddress = "TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj";
 
 //If work on mainNode, your need apply API KEY from https://www.trongrid.io/
-//tronWeb.setHeader({"TRON-PRO-API-KEY": 'YOUR_TRON_PRO_API_KEY'});
+// tronWeb.setHeader({"TRON-PRO-API-KEY": '8644309f-5951-4f97-ac4b-9c514f7f14d2'});
 
 class TransferForm extends React.Component {
     constructor(props) {
@@ -76,7 +77,7 @@ class TransferForm extends React.Component {
             for (let index = 0; index < datas.length; index++) {
                 let data = datas[index].split(/,/);
                 let amonut = new BigNumber(data[1]);
-                let transferCount = new BigNumber(1000000000000000000).multipliedBy(amonut).toFixed();
+                let transferCount = new BigNumber(1000000).multipliedBy(amonut).toFixed();
                 await this.delay(1);
                 //const resp = await this.state.instance.methods.transfer(data[0], data[1]).send({ shouldPollResponse: true });
                 const resp = await this.state.instance.methods.transfer(data[0], transferCount).send();

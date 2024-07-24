@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>TRC20 Batch Transfer</h1>
+        <h1>USDT Tron Batch Transfer</h1>
         <TransferForm />
       </header>
     </div>
