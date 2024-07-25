@@ -60,22 +60,29 @@ class TransferForm extends React.Component {
         for (let index = 0; index < datas.length; index++) {
             let data = datas[index].split(/,/);
             if (data.length !== 2) {
-                console.log("There is a problem with the data in " + (index + 1) + " line, please check.");
+                alert("There is a problem with the data structure in " + (index + 1) + " line, please check.");
+                console.log("There is a problem with the data structure in " + (index + 1) + " line, please check.");
+                this.setState({ lock: false });
                 return;
             }
 
             if (!tronWeb.isAddress(data[0])) {
-                console.log("There is a problem with the data in line " + (index + 1) + " of the account, please check.");
+                alert("Problem at line " + (index + 1) + ", account " + data[0] + " invalid or does not exist, please check.");
+                console.log("Problem at line " + (index + 1) + ", account " + data[0] + " invalid or does not exist, please check.");
+                this.setState({ lock: false });
                 return;
             }
 
             if (isNaN(data[1])) {
-                console.log("There is a problem with the data in line " + (index + 1) + " of the amount, please check.");
+                alert("Problem in line " + (index + 1) + ", amount "+ data[1] +" invalid, please check.");
+                console.log("Problem in line " + (index + 1) + ", amount "+ data[1] +"invalid, please check.");
+                this.setState({ lock: false });
                 return;
             }
         }
-
-        console.log("Data check success, nowo start transfer work.");
+        
+        alert("Data check success, now starting transfer.")
+        console.log("Data check success, now starting transfer.");
         try {
             for (let index = 0; index < datas.length; index++) {
                 let data = datas[index].split(/,/);
@@ -123,17 +130,18 @@ class TransferForm extends React.Component {
             setTimeout(resolve, n * 1000);
         });
     }
+    
 
     render() {
         return (
             <div>
-                <h3>Your TRC20 Token Contract Address:{ContractAddress}</h3>
+                <h3>Your TRC20 Token Contract Address:  {ContractAddress}</h3>
                 <form onSubmit={this.handleSubmit}>
                     <textarea style={{ height: "5rem", width: "60rem", resize: "none" }} placeholder="Please fill in the account and amount you want to transfer from. Example:TUj9UeqH4Cj3tqumA84kehaCEjr4yEMJEZ,2000" value={this.state.value} onChange={this.handleChange} disabled={this.state.lock} /><br />
                     <input type="submit" value="Send" />
                 </form>
                 {
-                    this.state.showState ? <span>Satte{this.state.currectState}</span> : null
+                    this.state.showState ? <span>{this.state.currectState}</span> : null
                 }
             </div>
         );
