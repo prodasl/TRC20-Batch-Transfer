@@ -5,10 +5,6 @@ import BigNumber from 'bignumber.js';
 const selfAccount = process.env.REACT_APP_WALLET_ADDRESS;
 const privateKey = process.env.REACT_APP_WALLET_PK;
 
-// const selfAccount = "TG4XvewdaRTHkg5tUwK9WYuh6bdkMEBKn5";
-// const privateKey = "30b5692ab36ff7e743a1499cd7f4f8f69a9a0a157bca28c4f3753d669c990f4b";
-
-
 const testNode = 'https://nile.trongrid.io';
 const tronWeb = new TronWeb(testNode, testNode, testNode, privateKey)
 // const mainNode = 'https://api.trongrid.io';
