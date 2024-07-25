@@ -7,9 +7,6 @@ RUN git clone https://github.com/prodasl/TRC20-Batch-Transfer.git
 
 WORKDIR /app/TRC20-Batch-Transfer
 
-# RUN npm install dotenv
-# RUN npm install @tronweb3/tronwallet-abstract-adapter @tronweb3/tronwallet-adapters
-
 RUN npm install
 
 CMD ["npm", "start"]

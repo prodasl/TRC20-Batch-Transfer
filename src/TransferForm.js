@@ -19,6 +19,7 @@ const ContractAddress = "TLsYXxdCA6VTiCCkMXKKHyw3FdNeZciQDZ";//Nile testnet
 //If work on mainNode, your need apply API KEY from https://www.trongrid.io/
 // tronWeb.setHeader({"TRON-PRO-API-KEY": '8644309f-5951-4f97-ac4b-9c514f7f14d2'});
 
+
 class TransferForm extends React.Component {
     constructor(props) {
         super(props);
@@ -40,14 +41,19 @@ class TransferForm extends React.Component {
         this.setState({ value: event.target.value });
     }
 
+
+    
     handleSubmit(event) {
         if (!this.state.canTransfer) {
             alert("The TRC20 token failed to load, you cannot use it.");
             return;
         }
-        this.transfer();
-        event.preventDefault();
+        this.setState({ loading: true }, () => {
+            this.transfer().then(result => this.setState({ loading: false }));
+            event.preventDefault();
+        });
     }
+
 
     async transfer() {
         this.setState({ lock: true });
@@ -81,7 +87,6 @@ class TransferForm extends React.Component {
             }
         }
         
-        alert("Data check success, now starting transfer.")
         console.log("Data check success, now starting transfer.");
         try {
             for (let index = 0; index < datas.length; index++) {
@@ -107,6 +112,7 @@ class TransferForm extends React.Component {
 
         this.setState({ value: "" });
         console.log("Data cleared.");
+        alert("TRANSACTIONS SENT SUCESSFULLY");
         this.setState({ lock: false });
     }
 
@@ -132,16 +138,19 @@ class TransferForm extends React.Component {
     }
 
     render() {
+        const { data, loading } = this.state;
+
         return (
             <div>
-                <h3>Your TRC20 Token Contract Address:  {ContractAddress}</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <textarea style={{ height: "10rem", width: "60rem", resize: "none" }} placeholder="Please fill in the account and amount you want to transfer from. Example:TUj9UeqH4Cj3tqumA84kehaCEjr4yEMJEZ,2000" value={this.state.value} onChange={this.handleChange} disabled={this.state.lock} /><br />
-                    <input type="submit" value="Send" />
-                </form>
+                <h3>USDT Contract Address:  {ContractAddress}</h3>
                 {
                     this.state.showState ? <span>{this.state.currectState}</span> : null
                 }
+                
+                <form onSubmit={this.handleSubmit}>
+                    <textarea style={{ height: "10rem", width: "60rem", resize: "none" }} placeholder="Please fill in the account(w) and amount(s) you want to transfer from. Example:TUj9UeqH4Cj3tqumA84kehaCEjr4yEMJEZ,2000" value={this.state.value} onChange={this.handleChange} disabled={this.state.lock} /><br />
+                    {loading ? <h3>Processing....</h3> : <input type="submit" value="Send" />}   
+                </form>
             </div>
         );
     }
