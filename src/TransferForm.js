@@ -130,14 +130,13 @@ class TransferForm extends React.Component {
             setTimeout(resolve, n * 1000);
         });
     }
-    
 
     render() {
         return (
             <div>
                 <h3>Your TRC20 Token Contract Address:  {ContractAddress}</h3>
                 <form onSubmit={this.handleSubmit}>
-                    <textarea style={{ height: "5rem", width: "60rem", resize: "none" }} placeholder="Please fill in the account and amount you want to transfer from. Example:TUj9UeqH4Cj3tqumA84kehaCEjr4yEMJEZ,2000" value={this.state.value} onChange={this.handleChange} disabled={this.state.lock} /><br />
+                    <textarea style={{ height: "10rem", width: "60rem", resize: "none" }} placeholder="Please fill in the account and amount you want to transfer from. Example:TUj9UeqH4Cj3tqumA84kehaCEjr4yEMJEZ,2000" value={this.state.value} onChange={this.handleChange} disabled={this.state.lock} /><br />
                     <input type="submit" value="Send" />
                 </form>
                 {
