@@ -4,16 +4,22 @@ import BigNumber from 'bignumber.js';
 
 const selfAccount = process.env.REACT_APP_WALLET_ADDRESS;
 const privateKey = process.env.REACT_APP_WALLET_PK;
+const environment = process.env.REACT_APP_ENVIRONMENT;
+let ContractAddress = '';
+let node = '';
+let tronWeb = '';
 
-const testNode = 'https://nile.trongrid.io';
-const tronWeb = new TronWeb(testNode, testNode, testNode, privateKey)
-// const mainNode = 'https://api.trongrid.io';
-// const tronWeb = new TronWeb(mainNode, mainNode, mainNode, privateKey)
-
-const ContractAddress = "TLsYXxdCA6VTiCCkMXKKHyw3FdNeZciQDZ";//Nile testnet
-
-//If work on mainNode, your need apply API KEY from https://www.trongrid.io/
-// tronWeb.setHeader({"TRON-PRO-API-KEY": '8644309f-5951-4f97-ac4b-9c514f7f14d2'});
+if (environment === 'prod'){
+    node = 'https://api.trongrid.io';
+    ContractAddress = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";//Nile testnet
+}else {
+    node = 'https://nile.trongrid.io';
+    ContractAddress = "TLsYXxdCA6VTiCCkMXKKHyw3FdNeZciQDZ";//Nile testnet
+}
+tronWeb = new TronWeb(node, node, node, privateKey)
+if (environment === 'prod'){
+    tronWeb.setHeader({"TRON-PRO-API-KEY": '8644309f-5951-4f97-ac4b-9c514f7f14d2'});
+}
 
 
 class TransferForm extends React.Component {
@@ -134,7 +140,7 @@ class TransferForm extends React.Component {
     }
 
     render() {
-        const { data, loading } = this.state;
+        const { loading } = this.state;
 
         return (
             <div>
